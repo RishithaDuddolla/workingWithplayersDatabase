@@ -20,7 +20,7 @@ const MakeserverDBConnection = async () => {
 MakeserverDBConnection()
 app.get('/players/', async (request, response) => {
   const dbQuery = `
-    SELECT * FROM cricketTeam
+    SELECT * FROM cricket_team
     ordered by playerId
     ;`
   const responsedb = await db.all(dbQuery)
@@ -28,9 +28,9 @@ app.get('/players/', async (request, response) => {
 })
 app.post('/players/', async (request, response) => {
   const playerdetails = request.body
-  const {player_id, player_name, jersey_number, role} = playerdetails
-  const dbQuery = `insert into cricketTeam (player_id, player_name, jersey_number,role) values
-  (${player_id},'${player_name}',${jersey_number},'${role}')
+  const {playerId, playerName, jerseyNumber, role} = playerdetails
+  const dbQuery = `insert into cricket_team (player_id, player_name, jersey_number,role) values
+  (${playerId},'${playerName}',${jerseyNumber},'${role}')
   ;`
   const dbresponse = await db.run(dbQuery)
   response.send('Player Added to Team')
@@ -38,7 +38,7 @@ app.post('/players/', async (request, response) => {
 app.get('/players/:playerId/', async (request, response) => {
   const player_id = request.params
   const dbQuery = `
-    SELECT * FROM cricketTeam
+    SELECT * FROM cricket_team
     where player_id=${player_id}
     ;`
   const responsedb = await db.get(dbQuery)
@@ -47,9 +47,9 @@ app.get('/players/:playerId/', async (request, response) => {
 app.put('/players/:player_id/', async (request, response) => {
   const playerdetails = request.body
   const player_id = request.params
-  const {player_name, jersey_number, role} = playerdetails
-  const dbQuery = `UPDATE cricketTeam (player_id, player_name, jersey_number,role) SET 
-  (player_id=${player_id},player_name='${player_name}',jersey_number=${jersey_number},role='${role}')
+  const {playerName, jerseyNumber, role} = playerdetails
+  const dbQuery = `UPDATE cricket_team (player_id, player_name, jersey_number,role) SET 
+  (player_id=${player_id},player_name='${playerName}',jersey_number=${jerseyNumber},role='${role}')
   ;`
   const dbresponse = await db.run(dbQuery)
   response.send('Player Details Updated')
@@ -57,7 +57,7 @@ app.put('/players/:player_id/', async (request, response) => {
 app.delete('/players/:playerId/', async (request, response) => {
   const player_id = request.params
   const dbQuery = `
-    DELETE FROM cricketTeam
+    DELETE FROM cricket_team
     where player_id=${player_id}
     ;`
   const responsedb = await db.get(dbQuery)
