@@ -8,7 +8,7 @@ app.use(express.json())
 let db=null;
 const MakeserverDBConnection = async () => {
   try {
-    const db = await open({
+    db = await open({
       filename: dbpath,
       driver: sqlite3.Database,
     })
