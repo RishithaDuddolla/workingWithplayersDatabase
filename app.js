@@ -5,6 +5,7 @@ const sqlite3 = require('sqlite3')
 const path = require('path')
 const dbpath = path.join(__dirname, 'cricketTeam.db')
 app.use(express.json())
+let db=null;
 const MakeserverDBConnection = async () => {
   try {
     const db = await open({
