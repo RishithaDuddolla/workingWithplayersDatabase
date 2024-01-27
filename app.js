@@ -22,7 +22,7 @@ MakeserverDBConnection()
 app.get('/players/', async (request, response) => {
   const dbQuery = `
     SELECT * FROM cricket_team
-    ordered by playerId
+    ordered by player_id
     ;`
   const responsedb = await db.all(dbQuery)
   response.send(responsedb)
@@ -47,10 +47,10 @@ app.get('/players/:playerId/', async (request, response) => {
 })
 app.put('/players/:player_id/', async (request, response) => {
   const playerdetails = request.body
-  const player_id = request.params
+  const playerId = request.params
   const {playerName, jerseyNumber, role} = playerdetails
   const dbQuery = `UPDATE cricket_team (player_id, player_name, jersey_number,role) SET 
-  (player_id=${player_id},player_name='${playerName}',jersey_number=${jerseyNumber},role='${role}')
+  (player_id=${playerId},player_name='${playerName}',jersey_number=${jerseyNumber},role='${role}')
   ;`
   const dbresponse = await db.run(dbQuery)
   response.send('Player Details Updated')
